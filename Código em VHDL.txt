@@ -1,0 +1,23 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity BinarytoHex is
+    port (
+        b3, b2, b1, b0 : in std_logic;  
+        hex_out : out std_logic_vector(3 downto 0) 
+    );
+end BinarytoHex;
+
+architecture behavioral of BinarytoHex is
+begin
+    process (b3, b2, b1, b0)
+        variable bin_num : natural range 0 to 15;
+    begin 
+        bin_num := to_integer(unsigned'("000" & b3 & b2 & b1 & b0));           
+        case bin_num is
+            when 0 to 15 =>
+                hex_out <= std_logic_vector(to_unsigned(bin_num, 4));  
+        end case;
+    end process;
+end behavioral;
